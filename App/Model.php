@@ -65,6 +65,7 @@ abstract class Model
         $sql = 'UPDATE ' . static::$table . ' SET ';
         foreach ($this as $column => $value) {
             if ('id' == $column) {
+                $data[':' . $column] = $value;
                 continue;
             }
             if ($flag === true) $sql = $sql . ', ';
@@ -72,7 +73,7 @@ abstract class Model
             $sql = $sql . $column . ' = ' . ':' . $column;
             $data[':' . $column] = $value;
         }
-        $sql = $sql . ' WHERE id= ' . $this->id;
+        $sql = $sql . ' WHERE id= ' .  ':id';
         $db = new Db();
         $db->execute($sql, $data);
     }
