@@ -64,14 +64,13 @@ abstract class Model
         $flag = false; //чтобы не поставить запятую перед WHERE
         $sql = 'UPDATE ' . static::$table . ' SET ';
         foreach ($this as $column => $value) {
+            $data[':' . $column] = $value;
             if ('id' == $column) {
-                $data[':' . $column] = $value;
                 continue;
             }
             if ($flag === true) $sql = $sql . ', ';
             $flag = true;
             $sql = $sql . $column . ' = ' . ':' . $column;
-            $data[':' . $column] = $value;
         }
         $sql = $sql . ' WHERE id= ' .  ':id';
         $db = new Db();
