@@ -6,4 +6,6 @@ $config = \App\Config::getInstance();
 
 echo $config->data['db']['host'];
 
+?>
+
 
